@@ -1,3 +1,6 @@
+#from tkinter import Tk, BOTH, Canvas
+import tkinter as tk
+
 class Window:
     def __init__(self, width, height): #1
         self.root=tk.Tk() #2

@@ -1,5 +1,3 @@
-#from tkinter import Tk, BOTH, Canvas
-import tkinter as tk
 from gui import Window
 
 
