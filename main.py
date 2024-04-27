@@ -5,7 +5,7 @@ def main():
     point1 = Point(150,150)
     point2 = Point(150,300)
     line1 = Line(point1,point2)
-    Window.draw_line(line1,"black")
+    win.draw_line(line1,"black")
     win.wait_for_close()
 
 

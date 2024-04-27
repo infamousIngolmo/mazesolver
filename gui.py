@@ -39,4 +39,4 @@ class Line:
         self.p2 = p2
 
     def draw(self,canvas,fill_color):
-        canvas.create_line(self.start_point.x,self.start_point.y,self.end_point.x,self.end_point.y,fill=fill_color, width=2)
+        canvas.create_line(self.p1.x, self.p1.y, self.p2.x, self.p2.y, fill=fill_color, width=2)
