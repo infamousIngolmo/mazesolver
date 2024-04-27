@@ -1,5 +1,5 @@
 from gui import Window, Point, Line, Cell
-import time
+import time, random
 
 class Maze:
     def __init__(self,
@@ -9,7 +9,7 @@ class Maze:
         num_cols,
         cell_size_x,
         cell_size_y,
-        win,): #1
+        win=None, seed=None): #1
 
         self.x1 = x1
         self.y1 = y1
@@ -19,6 +19,9 @@ class Maze:
         self.cell_size_y = cell_size_y
         self.win = win
         self._cells = []
+        if seed is not None:
+            self.seed = random.seed(seed)
+            
         self._create_cells()
 
     def _create_cells(self): 
@@ -42,6 +45,8 @@ class Maze:
         if self.win is None:
             return
         cell = self._cells[i][j]
+        if (i == 0 and j ==0) or (i == self.num_cols-1 and j == self.num_rows-1):
+            self._break_entrance_and_exit(cell, i, j)
         cell.draw()
         self._animate()
 
@@ -50,3 +55,13 @@ class Maze:
             return
         self.win.redraw()
         time.sleep(0.0005) 
+
+    def _break_entrance_and_exit(self, cell, i, j):
+        if (i == 0 and j ==0):
+            #print("remove top wall")
+            cell.has_top_wall = False
+        
+        elif (i == self.num_cols-1 and j == self.num_rows-1):
+            #print("remove bottom wall")
+            cell.has_bottom_wall = False
+        
