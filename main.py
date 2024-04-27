@@ -18,7 +18,14 @@ def main():
     cell4.has_bottom_wall = False
     cell4.draw()
 
+    # Draw a move from cell1 to cell2
+    cell1.draw_move(cell2)
 
+    # Draw an undo move from cell2 to cell1
+    cell2.draw_move(cell3, undo=True)
+
+    # Draw a move from cell3 to cell4
+    cell3.draw_move(cell4)
 
     win.wait_for_close()
 
