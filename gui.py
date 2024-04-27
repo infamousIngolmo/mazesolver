@@ -22,3 +22,21 @@ class Window:
     
     def close(self):
         self.running = False
+
+    def draw_line(self, line, fill_color):
+        line.draw(self.canvas, fill_color)
+
+class Point:
+    def __init__(self,x, y ):
+        #x=0 is the left of the screen.
+        #y=0 is the top of the screen.
+        self.x = x
+        self.y = y
+
+class Line:
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
+
+    def draw(self,canvas,fill_color):
+        canvas.create_line(self.start_point.x,self.start_point.y,self.end_point.x,self.end_point.y,fill=fill_color, width=2)
