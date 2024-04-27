@@ -73,9 +73,9 @@ class Cell:
         else:
             color = "red"
 
-        from_x = (self._x1 + self._x2)/2
-        from_y = (self._y1 + self._y2)/2
-        to_x = (to_cell._x1 + to_cell._x2)/2
-        to_y = (to_cell._y1 + to_cell._y2)/2
+        from_x = (self._x1 + self._x2)//2
+        from_y = (self._y1 + self._y2)//2
+        to_x = (to_cell._x1 + to_cell._x2)//2
+        to_y = (to_cell._y1 + to_cell._y2)//2
 
         self._win.canvas.create_line(from_x, from_y, to_x, to_y, fill=color)
