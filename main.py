@@ -1,4 +1,4 @@
-from gui import Window, Point, Line, Cell
+from gui import Window
 from maze import Maze
 
 def main():
