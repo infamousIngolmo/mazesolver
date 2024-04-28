@@ -48,6 +48,7 @@ class Maze:
             return
         cell = self._cells[i][j]
         cell.draw()
+        cell._reset_cell_visited()
         self._animate()
         
     def _animate(self):
@@ -102,6 +103,70 @@ class Maze:
             current_cell.has_bottom_wall = False
             self._cells[i][j + 1].has_top_wall = False
 
-        #recuse
+        #recurse
         self._break_walls_r(i+dx, j+dy)
-      
+    
+
+    def solve(self):
+        return self._solve_r(0, 0)
+
+    def _solve_r(self, i, j):
+
+        self._animate()
+        
+        if i==self.num_cols-1 and j==self.num_rows-1:
+            return True  
+        
+        current_cell = self._cells[i][j]    
+        current_cell.visited = True
+
+        directions = []
+        
+        #check cells around current_cell
+        if i > 0 and not self._cells[i - 1][j].visited and not current_cell.has_left_wall:
+            directions.append((-1, 0))  # Left
+        if i < self.num_cols - 1 and not self._cells[i + 1][j].visited and not current_cell.has_right_wall:
+            directions.append((1, 0))  # Right
+        if j > 0 and not self._cells[i][j - 1].visited and not current_cell.has_top_wall:
+            directions.append((0, -1))  # Up
+        if j < self.num_rows - 1 and not self._cells[i][j + 1].visited and not current_cell.has_bottom_wall:
+            directions.append((0, 1))  # Down
+        
+        #pick direction
+        if not directions:
+            # Undo the previous move
+            if i > 0 and self._cells[i - 1][j].visited:
+                self._cells[i - 1][j].draw_move(current_cell, undo=True)
+            elif i < self.num_cols - 1 and self._cells[i + 1][j].visited:
+                self._cells[i + 1][j].draw_move(current_cell, undo=True)
+            elif j > 0 and self._cells[i][j - 1].visited:
+                self._cells[i][j - 1].draw_move(current_cell, undo=True)
+            elif j < self.num_rows - 1 and self._cells[i][j + 1].visited:
+                self._cells[i][j + 1].draw_move(current_cell, undo=True)
+            return False
+        
+        #print(directions)
+        dx, dy = random.choice(directions)
+
+        #move that direction
+        new_i = i
+        new_j = j
+
+        if dx == -1:  # Move left
+            new_i = i - 1
+
+        elif dx == 1:  # Move right
+            new_i = i + 1
+
+        elif dy == -1:  # Move up
+            new_j = j - 1
+
+        elif dy == 1:  # Move down
+            new_j = j + 1
+
+        new_cell = self._cells[new_i][new_j]
+        current_cell.draw_move(new_cell)
+
+        return self._solve_r(new_i, new_j)
+
+        
